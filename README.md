@@ -20,74 +20,65 @@ A comprehensive web application for analyzing Tandem insulin pump data using AI-
 ### Deployment Steps
 
 1. **Create the file structure**:
-tandem-ai-analyzer/
-├── index.html
-├── style.css
-├── app.js
-└── README.md
-
-text
+   ```
+   tandem-ai-analyzer/
+   ├── index.html
+   ├── style.css
+   ├── app.js
+   └── README.md
+   ```
 
 2. **Copy the source code files** (provided in this document) into their respective files.
 
 3. **Deploy using Azure CLI**:
-```bash
-# Login to Azure
-az login
+   ```bash
+   # Login to Azure
+   az login
+   
+   # Deploy to Static Web App
+   az staticwebapp create \
+     --name tandem-ai-analyzer \
+     --resource-group your-resource-group \
+     --source https://github.com/your-username/tandem-ai-analyzer \
+     --location "Central US" \
+     --branch main \
+     --app-location "/" \
+     --api-location "" \
+     --output-location ""
+   ```
 
-# Deploy to Static Web App
-az staticwebapp create \
-  --name tandem-ai-analyzer \
-  --resource-group your-resource-group \
-  --source https://github.com/your-username/tandem-ai-analyzer \
-  --location "Central US" \
-  --branch main \
-  --app-location "/" \
-  --api-location "" \
-  --output-location ""
-```
+4. **Alternative: Manual deployment**:
+   - Zip all files
+   - Upload via Azure portal
+   - Or use FTP/Git deployment
 
-Alternative: Manual deployment:
+### Configuration
 
-Zip all files
+1. **API Integration**: Configure Perplexity AI API in the Settings page
+2. **Storage**: Choose between session or persistent storage
+3. **Customization**: Modify colors and branding in CSS variables
 
-Upload via Azure portal
+## Technology Stack
 
-Or use FTP/Git deployment
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **Storage**: Local Storage / Session Storage / IndexedDB
+- **Responsive**: CSS Grid and Flexbox
+- **Icons**: Unicode emojis for cross-platform compatibility
 
-Configuration
-API Integration: Configure Perplexity AI API in the Settings page
+## File Structure
 
-Storage: Choose between session or persistent storage
+- `index.html` - Main application markup
+- `style.css` - Comprehensive styling with CSS custom properties
+- `app.js` - Application logic and state management
+- `README.md` - Documentation and deployment instructions
 
-Customization: Modify colors and branding in CSS variables
+## Browser Support
 
-Technology Stack
-Frontend: HTML5, CSS3, JavaScript (ES6+)
+- Chrome/Edge 88+
+- Firefox 85+
+- Safari 14+
+- Mobile browsers (iOS Safari, Chrome Mobile)
 
-Storage: Local Storage / Session Storage / IndexedDB
+## License
 
-Responsive: CSS Grid and Flexbox
-
-Icons: Unicode emojis for cross-platform compatibility
-
-File Structure
-index.html - Main application markup
-
-style.css - Comprehensive styling with CSS custom properties
-
-app.js - Application logic and state management
-
-README.md - Documentation and deployment instructions
-
-Browser Support
-Chrome/Edge 88+
-
-Firefox 85+
-
-Safari 14+
-
-Mobile browsers (iOS Safari, Chrome Mobile)
-
-License
 MIT License - feel free to modify for your needs.
