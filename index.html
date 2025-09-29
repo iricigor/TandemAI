@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tandem AI Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="AI-powered analysis tool for Tandem insulin pump data exports">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-header">
+            <h1 class="app-title">🩺 Tandem AI Analyzer</h1>
+            <span class="version-badge">v1.0.0</span>
+        </div>
+        <div class="nav-tabs" id="navTabs">
+            <button class="nav-tab active" data-page="title">🏠 Title</button>
+            <button class="nav-tab" data-page="data">📊 Data</button>
+            <button class="nav-tab" data-page="analysis">🔍 Analysis</button>
+            <button class="nav-tab" data-page="settings">⚙️ Settings</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        
+        <!-- Title Page -->
+        <section class="page active" id="titlePage">
+            <div class="page-content">
+                <div class="welcome-section">
+                    <h2>Welcome to Tandem AI Analyzer</h2>
+                    <p class="subtitle">Professional AI-powered analysis for your Tandem insulin pump data</p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Data Upload</h3>
+                            <p>Upload and manage your Tandem pump export files with drag-and-drop support</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🤖</div>
+                            <h3>AI Analysis</h3>
+                            <p>Get intelligent insights and recommendations using advanced AI algorithms</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📈</div>
+                            <h3>Comprehensive Reports</h3>
+                            <p>View detailed analytics including time-in-range, patterns, and trends</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>Secure Storage</h3>
+                            <p>Your data is stored locally with configurable persistence options</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="app-info-section">
+                    <div class="info-card">
+                        <h3>About This Application</h3>
+                        <p>The Tandem AI Analyzer helps people with diabetes and their healthcare providers analyze insulin pump data exports to identify patterns, optimize therapy, and improve glucose management outcomes.</p>
+                        
+                        <div class="quick-links">
+                            <a href="#" class="link-btn">📚 User Guide</a>
+                            <a href="#" class="link-btn">🛟 Support</a>
+                            <a href="#" class="link-btn">👨‍💻 About Author</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="page-footer">
+                <div class="version-info">
+                    <span>Version: 1.0.0</span>
+                    <span>Build: 2024.09.29.001</span>
+                </div>
+            </footer>
+        </section>
+
+        <!-- Data Page -->
+        <section class="page" id="dataPage">
+            <div class="page-content">
+                <div class="page-header">
+                    <h2>📊 Data Management</h2>
+                    <p>Upload and manage your Tandem insulin pump data exports</p>
+                </div>
+
+                <!-- File Upload Section -->
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">⬆️</div>
+                        <h3>Upload Data Files</h3>
+                        <p>Drag and drop files here or click to select</p>
+                        <p class="upload-hint">Supports .csv, .zip, and other Tandem export formats</p>
+                        <input type="file" id="fileInput" accept=".csv,.zip,.txt" multiple hidden>
+                        <button class="upload-btn" id="uploadBtn">+ Select Files</button>
+                    </div>
+                </div>
+
+                <!-- Dataset List -->
+                <div class="datasets-section">
+                    <div class="section-header">
+                        <h3>📋 Uploaded Datasets</h3>
+                        <div class="dataset-actions">
+                            <button class="btn-secondary" id="selectAllBtn">Select All</button>
+                            <button class="btn-primary" id="analyzeBtn">🔍 Analyze Selected</button>
+                        </div>
+                    </div>
+                    
+                    <div class="datasets-list" id="datasetsList">
+                        <!-- Datasets will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Page -->
+        <section class="page" id="analysisPage">
+            <div class="page-content">
+                <div class="page-header">
+                    <h2>🔍 AI Analysis Results</h2>
+                    <p>Comprehensive insights from your pump data</p>
+                </div>
+
+                <!-- Analysis Status -->
+                <div class="analysis-status" id="analysisStatus">
+                    <div class="status-item">
+                        <span class="status-label">Data Preparation:</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="prepProgress"></div>
+                        </div>
+                        <span class="status-text" id="prepStatus">Ready</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">AI Processing:</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="aiProgress"></div>
+                        </div>
+                        <span class="status-text" id="aiStatus">Waiting</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Results Parsing:</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="parseProgress"></div>
+                        </div>
+                        <span class="status-text" id="parseStatus">Waiting</span>
+                    </div>
+                </div>
+
+                <!-- Summary Statistics -->
+                <div class="stats-section" id="statsSection" style="display: none;">
+                    <h3>📈 Summary Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="avgGlucose">--</div>
+                            <div class="stat-label">Average Glucose</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="timeInRange">--</div>
+                            <div class="stat-label">Time in Range</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalInsulin">--</div>
+                            <div class="stat-label">Total Insulin</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalRecords">--</div>
+                            <div class="stat-label">Data Points</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Insights -->
+                <div class="insights-section" id="insightsSection" style="display: none;">
+                    <h3>🤖 AI Insights</h3>
+                    <div class="insights-list" id="insightsList">
+                        <!-- Insights will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="recommendations-section" id="recommendationsSection" style="display: none;">
+                    <h3>💡 Recommendations</h3>
+                    <div class="recommendations-list" id="recommendationsList">
+                        <!-- Recommendations will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Export Options -->
+                <div class="export-section" id="exportSection" style="display: none;">
+                    <h3>📤 Export Results</h3>
+                    <div class="export-buttons">
+                        <button class="btn-secondary">📋 Copy to Clipboard</button>
+                        <button class="btn-secondary">📄 Export to PDF</button>
+                        <button class="btn-secondary">📊 Export to CSV</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Page -->
+        <section class="page" id="settingsPage">
+            <div class="page-content">
+                <div class="page-header">
+                    <h2>⚙️ Settings</h2>
+                    <p>Configure your application preferences</p>
+                </div>
+
+                <!-- API Configuration -->
+                <div class="settings-section">
+                    <h3>🔑 API Configuration</h3>
+                    <div class="setting-group">
+                        <label for="apiToken">Perplexity AI API Token:</label>
+                        <div class="input-group">
+                            <input type="password" id="apiToken" placeholder="Enter your API token" class="api-input">
+                            <button class="btn-primary" id="saveApiBtn">💾 Save</button>
+                        </div>
+                        <p class="setting-hint">Your API token is stored securely in your browser</p>
+                    </div>
+                </div>
+
+                <!-- Storage Options -->
+                <div class="settings-section">
+                    <h3>💾 Storage Options</h3>
+                    <div class="setting-group">
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="storageType" value="persistent" checked>
+                                <span class="radio-custom"></span>
+                                <div class="radio-content">
+                                    <strong>Persistent Storage (IndexedDB)</strong>
+                                    <p>Data survives browser restarts</p>
+                                </div>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="storageType" value="session">
+                                <span class="radio-custom"></span>
+                                <div class="radio-content">
+                                    <strong>Session Storage</strong>
+                                    <p>Data cleared when browser closes</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Preferences -->
+                <div class="settings-section">
+                    <h3>👤 User Preferences</h3>
+                    <div class="setting-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="enableNotifications">
+                            <span class="checkbox-custom"></span>
+                            Enable notifications for analysis completion
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="autoAnalysis">
+                            <span class="checkbox-custom"></span>
+                            Auto-analyze new uploads
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Data Management -->
+                <div class="settings-section">
+                    <h3>🗑️ Data Management</h3>
+                    <div class="setting-group">
+                        <button class="btn-danger" id="clearDataBtn">🗑️ Clear All Data</button>
+                        <p class="setting-hint">This will permanently delete all uploaded datasets and analysis results</p>
+                    </div>
+                </div>
+
+                <!-- App Information -->
+                <div class="settings-section">
+                    <h3>ℹ️ Application Information</h3>
+                    <div class="app-info">
+                        <div class="info-row">
+                            <span class="info-label">Version:</span>
+                            <span class="info-value">1.0.0</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Build:</span>
+                            <span class="info-value">2024.09.29.001</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Last Updated:</span>
+                            <span class="info-value">September 29, 2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
