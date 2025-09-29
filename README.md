@@ -37,9 +37,9 @@ A comprehensive web application for analyzing Tandem insulin pump data using AI-
    
    # Deploy to Static Web App
    az staticwebapp create \
-     --name tandem-ai-analyzer \
-     --resource-group your-resource-group \
-     --source https://github.com/your-username/tandem-ai-analyzer \
+     --name tandem-ai \
+     --resource-group TandemAI \
+     --source https://github.com/iricigor/TandemAI \
      --location "Central US" \
      --branch main \
      --app-location "/" \
